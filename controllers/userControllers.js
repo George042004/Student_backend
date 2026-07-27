@@ -22,14 +22,15 @@ async function register(req,res){
         }
         const hashpass = await bcrypt.hash(password,10)
         const ans = await users.create({name,roll,email,phone,password:hashpass,img:req.file? req.file.path:null})
+        res.json({status:true, message:"User Registered successfully!"})
+        console.log("Email sent successfully");
+        
         await transporter.sendMail({
             from:`'Student Management System'${process.env.EMAIL}`,
             to:`${email}`,
             subject:"Registered successfully🎉",
             html:`<h3>Hello, ${name}.</h3><br/><p>You have registered successfully for student management system.</p>`
         })
-        console.log("Email sent successfully");
-        return res.json({status:true, message:"User Registered successfully!"})
     }
 
     catch(e)
