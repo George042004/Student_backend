@@ -11,4 +11,11 @@ const transporter =nodemailer.createTransport({
     }
 });
 
+if(transporter){
+    console.log("Email connected")
+}
+else{
+    console.log("Email not connected")
+}
+
 module.exports = transporter
