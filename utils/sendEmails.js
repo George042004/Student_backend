@@ -12,7 +12,7 @@ const transporter =nodemailer.createTransport({
 });
 
 transporter.verify((e, s) => {
-  if (error) {
+  if (e) {
     console.error("Mail connection failed:", e);
   } else {
     console.log("Mail server is ready");
