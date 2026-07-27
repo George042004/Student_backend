@@ -28,7 +28,7 @@ async function register(req,res){
             subject:"Registered successfully🎉",
             html:`<h3>Hello, ${name}.</h3><br/><p>You have registered successfully for student management system.</p>`
         })
-        
+        console.log("Email sent successfully");
         return res.json({status:true, message:"User Registered successfully!"})
     }
 
