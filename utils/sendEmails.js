@@ -1,22 +1,15 @@
 const nodemailer = require('nodemailer')
 require('dotenv').config()
-const email = process.env.EMAIL 
-const password = process.env.PASS
 
 const transporter =nodemailer.createTransport({
     service:'gmail',
     auth:{
-        user:email,
-        pass:password
+        user:process.env.EMAIL,
+        pass:process.env.PASS
     }
 });
 
-transporter.verify((e, s) => {
-  if (e) {
-    console.error("Mail connection failed:", e);
-  } else {
-    console.log("Mail server is ready");
-  }
-});
+await transporter.verify();
+console.log("Mail server Connected");
 
 module.exports = transporter
