@@ -1,6 +1,6 @@
 const express = require('express')
 const userControllers = require('../controllers/userControllers')
-const uploads = require('../middleware/multer')
+const {uploads} = require('../middleware/multer')
 const auth = require('../middleware/auth')
 // require('dotenv').config()
 
