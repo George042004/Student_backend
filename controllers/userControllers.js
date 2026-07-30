@@ -239,8 +239,26 @@ async function updatepassword(req,res){
         return res.json({status:true,message:"password updated"})
     }
     return res.json({status:false, message:"unable to change password"})
+}
+
+async function uploadResume(req, res) {
+    try {
+        const roll = req.user.roll; 
+        const resumeFind = await Resume.findOne({$or: [{roll:roll},{email:roll}]});
+        if(resumeFind) {
+            return res.json({status:false, message:"Resume already uploaded"});
+        }   
+        const resume = await Resume.create({email: roll, url: req.file.path, publicId:req.file.filename});
+        return res.json({status:true, message:"Resume uploaded successfully"});
+    }
+    catch(e) {
+        return res.json({status:false, message:e.message});
+    }   
 
 
 }
 
-module.exports = {register, login, getdata, resetpass, getstudents, del, update, otpfun, verify, updatepassword}
+
+
+
+module.exports = {register, login, getdata, resetpass, getstudents, del, update, otpfun, verify, updatepassword, uploadResume}

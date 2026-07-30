@@ -11,6 +11,22 @@ const storage = new CloudinaryStorage({
 })
 
 
+const resumeStorage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: "student_resumes",
+        allowed_formats: ["pdf"],
+        resource_type: "raw"
+    }
+});
+
+const uploadResume = multer({ storage: resumeStorage });
+const uploads = multer({storage:storage})
+
+
+module.exports = {uploads, uploadResume};
+
+
 // const storage = multer.diskStorage({
 //     destination:function(req,file,cb){
 //         cb(null,'uploads/')
@@ -20,7 +36,3 @@ const storage = new CloudinaryStorage({
 //         cb(null,Date.now()+'-'+file.originalname)
 //     }
 // })
-
-const uploads = multer({storage:storage})
-
-module.exports = uploads
