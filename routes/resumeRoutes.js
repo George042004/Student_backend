@@ -7,4 +7,4 @@ const {uploadResume} = require('../controllers/resumeControllers')
 
 router.post('/uploadresume',verifyToken,resumeUpload.single('resume'),uploadResume)
 
-module.exports = router
+module.exports = router 
