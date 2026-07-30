@@ -11,6 +11,7 @@ server.use(cors())
 server.use(parser.json())
 server.use(express.json())
 server.use('/users',userRoutes)
+server.use('/resumes',require('./routes/resumeRoutes'))
 
 server.use('/uploads',express.static(path.join(__dirname,'uploads')))
 
