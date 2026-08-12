@@ -3,7 +3,12 @@ const Permission = require('../models/permissionModels')
 
 async function permission(req,res){
     const {name,roll,email,phone,request} = req.body 
-    const added = await Permission.create({name,roll,email,phone,reason:request})
+    const added = await Permission.create({
+        name:name,
+        roll:roll,
+        email:email,
+        phone:phone,
+        reason:request})
     if(!added)
     {
         return res.json({status:false,message:"unable to send request!"})
