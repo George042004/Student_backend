@@ -66,8 +66,8 @@ try{
         {
             expiresIn:'2h'
         }) 
-
-    return res.json({status:true, message:"Login successful !",token})
+    const id = user._id
+    return res.json({status:true, message:"Logged in successfully!",token,id})
 
     }
 
