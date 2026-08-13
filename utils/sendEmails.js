@@ -1,32 +1,12 @@
-const nodemailer = require('nodemailer')
+const {Resend} = require('resend')
 require('dotenv').config()
 
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  connectionTimeout:10000,
-  greetingTimeout:10000,
-  socketTimeout:10000,
-  family:4,
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASS,
-  },
-});
 
-async function verify(){
-      console.log('Checking mail server...')
+const {Resend} = require('resend')
+require('dotenv').config()
 
-   try{
-    await transporter.verify();
-    console.log("Mail server Connected");
-   }
-    catch(e){
-        console.log("Mail server Error: ",e);
-    }
-}
+const resend = new Resend(process.env.API_KEY)
 
-verify();
+module.exports = resend
 module.exports = transporter

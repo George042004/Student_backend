@@ -2,7 +2,7 @@ const users = require('../models/userModels')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
-const transporter = require('../utils/sendEmails')
+const resend = require('../utils/sendEmails')
 require('dotenv').config()
 
 
@@ -22,15 +22,18 @@ async function register(req,res){
         }
         const hashpass = await bcrypt.hash(password,10)
         const ans = await users.create({name,roll,email,phone,password:hashpass,img:req.file? req.file.path:null})
-        
-        await transporter.sendMail({
-            from:`'Student Management System' <${process.env.EMAIL}>`,
-            to:`${email}`,
+
+        const {data,error} = await resend.emails.send({
+            from:process.env.EMAIL,
+            to:[email],
             subject:"Registered successfully🎉",
-            html:`<h3>Hello, ${name}.</h3><br/><p>You have registered successfully for student management system.</p>`
+            text:`Hello, ${name}. You have registered successfully for student management system.`
         })
-        res.json({status:true, message:"User Registered successfully!"})
-        console.log("Email sent successfully");
+        
+        if(error)
+        {
+            return res.json({status:false,message:"Registration failed!"})
+        }
     }
 
     catch(e)
@@ -203,14 +206,17 @@ async function otpfun(req,res){
     }
     else{
         otp = Math.floor(100000+Math.random()*457841)
-        await transporter.sendMail({
-            from:`${process.env.EMAIL}`,
-            to:`${email}`,
-            subject:'OTP',
-            text:`Your OTP is ${otp}. Dont't share your OTP to anyone.`
+
+        const {data,email} = await resend.emails.send({
+            from:process.env.EMAIL,
+            to:[email],
+            subject:"OTP", 
+            text:`Your OTP is ${otp}. Don't share your OTP with anyone.`
         })
-        return res.json({status:true, message:"OTP sent"})
-    } 
+        if(error){
+            return res.json({status:false,message:'Unable to send OTP'})
+        }
+    }
 }
 
 
