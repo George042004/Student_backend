@@ -40,7 +40,7 @@ async function reqStatusUpdate(req,res){
 async function myReq(req,res)
 {
     const email = req.user.email 
-    const reqst = await Permission.find({$or:[{roll:roll},{email:roll}]})
+    const reqst = await Permission.find({$or:[{roll:email},{email:email}]})
     if(!reqst)
     {
         return res.json({status:false})
