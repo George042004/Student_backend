@@ -1,13 +1,14 @@
 const nodemailer = require('nodemailer')
 require('dotenv').config()
 
-console.log('EMAIL:',process.env.EMAIL)
-console.log('PASS exists:',!!process.env.PASS)
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
+  connectionTimeout:10000,
+  greetingTimeout:10000,
+  socketTimeout:10000,
   family:4,
   auth: {
     user: process.env.EMAIL,
