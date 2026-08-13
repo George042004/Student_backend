@@ -203,7 +203,7 @@ async function otpfun(req,res){
     }
     else{
         otp = Math.floor(100000+Math.random()*457841)
-        transporter.sendMail({
+        await transporter.sendMail({
             from:`${process.env.EMAIL}`,
             to:`${email}`,
             subject:'OTP',
