@@ -25,5 +25,17 @@ async function getRequests(req,res){
     return res.json({status:true,message:requests})
 }
 
+//            const res = await axios.put('https://student-backend-fe9r.onrender.com/request/updateReq',{
 
-module.exports = {permission,getRequests}
+async function reqStatusUpdate(req,res){
+    const {reqStatus,roll} = req.body 
+    const update = await Permission.updateOne({roll:roll},{$set:{reqStatus:reqStatus}})
+    if(!update)
+    {
+        return res.json({status:false,message:"Unable to update"})
+    }
+    return res.json({status:true})
+}
+
+
+module.exports = {permission,getRequests,reqStatusUpdate}

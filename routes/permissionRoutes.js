@@ -5,5 +5,6 @@ const auth = require('../middleware/auth')
 
 router.post('/',auth,permissionControllers.permission)
 router.get('/getRequests',permissionControllers.getRequests)
+router.put('/updateReq',permissionControllers.reqStatusUpdate)
 
 module.exports = router
