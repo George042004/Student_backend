@@ -39,7 +39,7 @@ async function reqStatusUpdate(req,res){
 
 async function myReq(req,res)
 {
-    const email = req.user.email 
+    const email = req.user.roll
     const reqst = await Permission.find({$or:[{roll:email},{email:email}]})
     if(!reqst)
     {
