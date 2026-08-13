@@ -207,7 +207,7 @@ async function otpfun(req,res){
     else{
         otp = Math.floor(100000+Math.random()*457841)
 
-        const {data,email} = await resend.emails.send({
+        const {data,error} = await resend.emails.send({
             from:process.env.EMAIL,
             to:[email],
             subject:"OTP", 
