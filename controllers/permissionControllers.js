@@ -25,11 +25,10 @@ async function getRequests(req,res){
     return res.json({status:true,message:requests})
 }
 
-//            const res = await axios.put('https://student-backend-fe9r.onrender.com/request/updateReq',{
 
 async function reqStatusUpdate(req,res){
-    const {reqStatus,roll} = req.body 
-    const update = await Permission.updateOne({roll:roll},{$set:{reqStatus:reqStatus}})
+    const {reqStatus,roll,reason} = req.body 
+    const update = await Permission.updateOne({roll:roll, reason:reason},{$set:{reqStatus:reqStatus}})
     if(!update)
     {
         return res.json({status:false,message:"Unable to update"})
@@ -38,4 +37,17 @@ async function reqStatusUpdate(req,res){
 }
 
 
-module.exports = {permission,getRequests,reqStatusUpdate}
+async function myReq(req,res)
+{
+    const email = req.user.email 
+    const reqst = await Permission.find({$or:[{roll:roll},{email:roll}]})
+    if(!reqst)
+    {
+        return res.json({status:false})
+    }
+    return res.json({status:true, message:reqst})
+
+}
+
+
+module.exports = {permission,getRequests,reqStatusUpdate,myReq}
