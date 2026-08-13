@@ -214,6 +214,7 @@ async function otpfun(req,res){
             text:`Your OTP is ${otp}. Don't share your OTP with anyone.`
         })
         if(error){
+            console.log("RESEND Error is:",error)
             return res.json({status:false,message:'Unable to send OTP'})
         }
     }
