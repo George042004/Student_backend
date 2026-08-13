@@ -24,7 +24,7 @@ async function register(req,res){
         const ans = await users.create({name,roll,email,phone,password:hashpass,img:req.file? req.file.path:null})
 
         const {data,error} = await resend.emails.send({
-            from:process.env.EMAIL,
+            from:'onboarding@resend.dev',
             to:[email],
             subject:"Registered successfully🎉",
             text:`Hello, ${name}. You have registered successfully for student management system.`
@@ -208,7 +208,7 @@ async function otpfun(req,res){
         otp = Math.floor(100000+Math.random()*457841)
 
         const {data,error} = await resend.emails.send({
-            from:process.env.EMAIL,
+            from:'onboarding@resend.dev',
             to:[email],
             subject:"OTP", 
             text:`Your OTP is ${otp}. Don't share your OTP with anyone.`
