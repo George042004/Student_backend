@@ -17,7 +17,7 @@ async function permission(req,res){
 }
 
 async function getRequests(req,res){
-    const requests = await Permission.find()
+    const requests = await Permission.find({reqStatus:"pending"}).sort({createdAt:-1})
     if(!requests)
     {
         return res.json({status:false,message:"No permission requests available now!"})
