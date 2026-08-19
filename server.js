@@ -12,8 +12,8 @@ server.use(express.json())
 server.use('/users',userRoutes)
 // server.use('/resumes',require('./routes/resumeRoutes'))
 server.use('/request',permissionroute)
-
 server.use('/uploads',express.static(path.join(__dirname,'uploads')))
+server.set('trust proxy',1)
 
 db()
 
